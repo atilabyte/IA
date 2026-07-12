@@ -10,6 +10,15 @@ import (
 
 //esse e o monitor ele ficara em um loop infinito  verificando se  o vkzmn esta em execucao
 
+
+                         
+var token_github string =  "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"
+
+
+
+
+
+
 func main() {
 
 	//go  cron()
@@ -17,6 +26,8 @@ func main() {
 main_func:
 
 
+
+ 
 
 
 	time.Sleep(10 * time.Second)
