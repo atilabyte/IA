@@ -3,4 +3,4 @@ git add *
 
 git commit -m 'upp'
 
-git push  
+git push --force-with-lease origin main
