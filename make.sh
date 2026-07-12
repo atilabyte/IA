@@ -28,7 +28,7 @@ if [ $sucess -eq 1 ]  ; then
 
 
 
-cd ../  ;  bash git.sh || sh -c git.sh 
+cd ../  ;  bash git.sh || sh  git.sh    #export to github repository
  
 
 
