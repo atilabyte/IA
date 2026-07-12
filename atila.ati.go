@@ -19,7 +19,6 @@ import (
 
 func main() {
 
-	//go  cron()
 
 main_func:
 
