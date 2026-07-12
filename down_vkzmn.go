@@ -2,6 +2,8 @@ package main
 
 import (
 
+
+        "fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -15,7 +17,7 @@ func down_atila_vkzmn_sh() {
 
 	}
 
-	for i, _ := range url {
+	for i ,_ := range url {
 
 		req := http.Client{}
 
@@ -23,10 +25,15 @@ func down_atila_vkzmn_sh() {
 
 		if err_get != nil {
 
+                
+                     fmt.Println(err_get)
+
 
 			continue
 
 		}
+
+
 
 		down_bytes, err_readall := ioutil.ReadAll(resp.Body)
 
