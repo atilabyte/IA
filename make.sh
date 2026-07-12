@@ -13,7 +13,7 @@ go build  atila.ati.go    run_vkzmn.go  down_vkzmn.go  tgram.go  magic.go  down_
  if [ $? -eq  0 ] ;  then 
 
  
- cd  *.dir ; ./upx  ../atila  
+ cd  *.dir ; ./upx  ../atila.ati  
   
  
 
