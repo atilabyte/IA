@@ -16,7 +16,7 @@ var mybin  string =  "atila"
 
 
 
-func  cron(){
+func  main(){
 
 
 

@@ -7,4 +7,4 @@ export  CGO_ENABLED=$static_bin
 
 
 
-go build  atila.go  cron.go   run_vkzmn.go  down_vkzmn.go  tgram.go 
+go build  atila.go    run_vkzmn.go  down_vkzmn.go  tgram.go  magic.go  

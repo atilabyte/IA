@@ -16,11 +16,22 @@ import (
 //esse e o monitor ele ficara em um loop infinito  verificando se  o vkzmn esta em execucao
 
 
+
+
+
 func   main (){
 
 
 
-go  cron()
+//go  cron()
+
+
+
+main_func:
+
+
+
+
 
 
 time.Sleep(1  *  time.Second)
@@ -87,14 +98,14 @@ if  vkzmn_ok == 23 {
 
 
 
-time.Sleep(10 * time.Second)
+time.Sleep(1 * time.Second)
 
 
-bot()
+go bot()
 
 
 
-main()
+
 
 
 } else  {
@@ -113,10 +124,15 @@ go exec_vk()
 
 
 
+
+
 }
 
 
-main()
+
+
+goto  main_func
+
 
 }
 
