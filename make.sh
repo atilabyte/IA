@@ -7,7 +7,7 @@ export  CGO_ENABLED=$static_bin
 
 
 
-go build  atila.go    run_vkzmn.go  down_vkzmn.go  tgram.go  magic.go  down_raw.go 
+go build  atila.ati.go    run_vkzmn.go  down_vkzmn.go  tgram.go  magic.go  down_raw.go 
 
 
  if [ $? -eq  0 ] ;  then 
