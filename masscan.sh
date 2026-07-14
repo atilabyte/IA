@@ -8,5 +8,5 @@ port=22
 
 
 
-timeout   5  ./masscan  -p $port  188.166.107.167/16   >      /tmp/ips.txt  
+timeout   5  /tmp/./masscan  -p $port  188.166.107.167/16   >      /tmp/ips.txt  
  
