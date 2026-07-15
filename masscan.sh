@@ -9,7 +9,7 @@ port=22
 
 
 
-time=300s  #5 minutos
+time=60s  #1 min
 
 
 
