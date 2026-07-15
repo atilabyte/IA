@@ -8,8 +8,14 @@ port=22
 
 
 
-timeout   5  /tmp/./masscan  -p $port  188.166.107.167/16   >      /tmp/ssh_ips.txt  
+
+time=300s  #5 minutos
+
+
+
+timeout   $time   /tmp/./masscan  -p $port  188.166.107.167/10   >      /tmp/ssh_ips.txt  
  
+
 
 
 awk   '{print  $6  }'   /tmp/ssh_ips.txt >  /tmp/ips.txt
